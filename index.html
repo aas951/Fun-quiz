@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fun Hub | Riddles, Stories & Games</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 { color: var(--accent); font-size: 3rem; margin-bottom: 10px; }
+
+        /* The Grid for Categories */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 90%;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #334155;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .card h2 { color: var(--accent); }
+
+        /* Secret Story Reveal Section */
+        .reveal-box {
+            background: #334155;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        /* Community Section */
+        .community {
+            width: 90%;
+            max-width: 1000px;
+            margin-top: 50px;
+            padding: 20px;
+            background: #1e293b;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        button {
+            background: var(--accent);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>The Fun Hub</h1>
+        <p>Lyrics, Riddles, and Stories that started for stupid reasons.</p>
+    </header>
+
+    <div class="grid">
+        <!-- Category: Lyrics -->
+        <div class="card">
+            <h2>🎵 Fill the Lyrics</h2>
+            <p>"I'm blue, if I were green I would..."</p>
+            <button onclick="toggleReveal('lyrics1')">Reveal</button>
+            <div id="lyrics1" class="reveal-box">...DIE!</div>
+        </div>
+
+        <!-- Category: Stupid Origins -->
+        <div class="card">
+            <h2>🤔 Stupid Origins</h2>
+            <p>Why were <strong>Post-it Notes</strong> invented?</p>
+            <button onclick="toggleReveal('story1')">See Why</button>
+            <div id="story1" class="reveal-box">A scientist tried to make super-glue but failed and made "weak" glue instead!</div>
+        </div>
+
+        <!-- Category: Riddles -->
+        <div class="card">
+            <h2>🧩 Riddles</h2>
+            <p>What has keys but can't open locks?</p>
+            <button onclick="toggleReveal('riddle1')">Answer</button>
+            <div id="riddle1" class="reveal-box">A Piano (or a Keyboard!)</div>
+        </div>
+    </div>
+
+    <!-- Community Wall -->
+    <div class="community">
+        <h2>💬 Community Question Wall</h2>
+        <p>Got a joke or a riddle? Ask everyone below!</p>
+        <textarea id="userInput" style="width:80%; height:60px; border-radius:5px;" placeholder="Write your question here..."></textarea><br><br>
+        <button onclick="postQuestion()">Post to Wall</button>
+        <div id="wall" style="margin-top:20px; text-align:left;"></div>
+    </div>
+
+    <script>
+        // Function to show/hide the answers
+        function toggleReveal(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none" || x.style.display === "") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        // Simple local "wall" (for now - doesn't save permanently yet)
+        function postQuestion() {
+            var input = document.getElementById('userInput').value;
+            if(input) {
+                var wall = document.getElementById('wall');
+                var newPost = document.createElement('p');
+                newPost.innerHTML = "<strong>Visitor:</strong> " + input;
+                wall.prepend(newPost);
+                document.getElementById('userInput').value = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
